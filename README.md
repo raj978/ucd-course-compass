@@ -1,5 +1,7 @@
 # UCD Course Compass - Data Catalog project
 
+Link to the deployed site : https://raj978.github.io/ucd-course-compass
+
 A simple data catalog project to search, filter and view details about all courses offered at UC Davis in 2025.
 
 The JS code is inside the js folder and the HTML code is in index.html, whereas the CSS code is in styles. The json files containing the course data can be found in the data directory.
