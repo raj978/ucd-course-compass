@@ -1,31 +1,276 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
-  </head>
+<html lang="en">
 
-  <body>
-    <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
-    </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UC Davis Course Compass</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>UC Davis Course Catalog</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Term Selector -->
+    <section class="term-selector">
+      <div class="term-selector-container">
+        <button class="term-btn" data-term="fall">Fall 2025</button>
+        <button class="term-btn active" data-term="winter">Winter 2025</button>
+        <button class="term-btn" data-term="spring">Spring 2025</button>
       </div>
-    </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
-    </div>
-  </body>
+    </section>
+
+    <!-- Search Panel -->
+    <section class="search-panel">
+      <div class="panel-header">
+        <h2>Add / Search Courses</h2>
+      </div>
+      <div class="panel-body">
+        <form id="course-search-form">
+          <div class="search-grid">
+            <!-- Left Column -->
+            <div class="search-column">
+              <div class="form-group">
+                <label for="keyword">Search for courses by CRN, subject, instructor last name, or keyword:</label>
+                <input type="text" id="keyword" name="keyword" placeholder="eg. 52970">
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject:</label>
+                <select id="subject" name="subject">
+                  <option value="">-</option>
+                  <option value="BIS">Biological Sciences (BIS)</option>
+                  <option value="CHE">Chemical Engineering (CHE)</option>
+                  <option value="CSE">Computer Science (CSE)</option>
+                  <option value="MAT">Mathematics (MAT)</option>
+                  <option value="PHY">Physics (PHY)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="course-level">Course Level:</label>
+                <select id="course-level" name="courseLevel">
+                  <option value="">-</option>
+                  <option value="lower">Lower Division (1-99)</option>
+                  <option value="upper">Upper Division (100-199)</option>
+                  <option value="graduate">Graduate (200+)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="units">Units:</label>
+                <select id="units" name="units">
+                  <option value="">-</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="search-column">
+              <div class="form-group">
+                <label>Meeting on:</label>
+                <div class="checkbox-group">
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="meetingDays" value="mon"> Mon
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="meetingDays" value="tues"> Tues
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="meetingDays" value="wed"> Wed
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="meetingDays" value="thurs"> Thurs
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="meetingDays" value="fri"> Fri
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="meetingDays" value="sat"> Sat
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group half">
+                  <label for="start-time">Starting:</label>
+                  <select id="start-time" name="startTime">
+                    <option value="">At</option>
+                    <option value="8:00">8:00 AM</option>
+                    <option value="9:00">9:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="15:00">3:00 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                    <option value="17:00">5:00 PM</option>
+                  </select>
+                </div>
+                <div class="form-group half">
+                  <label for="end-time">Ending:</label>
+                  <select id="end-time" name="endTime">
+                    <option value="">At</option>
+                    <option value="9:00">9:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="15:00">3:00 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                    <option value="17:00">5:00 PM</option>
+                    <option value="18:00">6:00 PM</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="meeting-type">Meeting Type:</label>
+                <select id="meeting-type" name="meetingType">
+                  <option value="">All Meeting Types</option>
+                  <option value="LEC">Lecture</option>
+                  <option value="DIS">Discussion</option>
+                  <option value="LAB">Laboratory</option>
+                  <option value="SEM">Seminar</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="include-type">Include:</label>
+                <select id="include-type" name="includeType">
+                  <option value="">All Courses</option>
+                  <option value="open">Open Courses</option>
+                  <option value="closed">Closed Courses</option>
+                  <option value="waitlist">Waitlisted Courses</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Options (initially hidden) -->
+          <div class="advanced-options" id="advanced-options">
+            <h3>GE Options:</h3>
+            <div class="ge-options">
+              <h4>Topical Breadth:</h4>
+              <div class="checkbox-grid">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="geOptions" value="ah"> AH (Arts & Hum)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="geOptions" value="se"> SE (Sci & Eng)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="geOptions" value="ss"> SS (Social Sci)
+                </label>
+              </div>
+            </div>
+
+            <div class="core-literacies">
+              <h4>Core Literacies:</h4>
+              <div class="checkbox-grid">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="acgh"> ACGH (Amer Cultr,Gov,Hist)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="dd"> DD (Domestic Diversity)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="ol"> OL (Oral Lit)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="ql"> QL (Quantitative Lit)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="sl"> SL (Scientific Lit)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="vl"> VL (Visual Lit)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="wc"> WC (World Cultr)
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="coreLiteracies" value="we"> WE (Writing Exp)
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="clear-btn">Clear</button>
+            <button type="button" class="btn btn-secondary" id="toggle-advanced">Show Advanced Options</button>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Course Listings -->
+    <section class="course-listings">
+      <div class="panel-header">
+        <h2>Course Listings</h2>
+      </div>
+
+      <!-- Alphabetical Navigation -->
+      <div class="alpha-nav">
+        <div class="alpha-nav-container">
+          <a href="#section-A" class="alpha-nav-item">A</a>
+          <a href="#section-B" class="alpha-nav-item">B</a>
+          <a href="#section-C" class="alpha-nav-item">C</a>
+          <a href="#section-D" class="alpha-nav-item">D</a>
+          <a href="#section-E" class="alpha-nav-item">E</a>
+          <a href="#section-F" class="alpha-nav-item">F</a>
+          <a href="#section-G" class="alpha-nav-item">G</a>
+          <a href="#section-H" class="alpha-nav-item">H</a>
+          <a href="#section-I" class="alpha-nav-item">I</a>
+          <a href="#section-J" class="alpha-nav-item">J</a>
+          <a href="#section-K" class="alpha-nav-item">K</a>
+          <a href="#section-L" class="alpha-nav-item">L</a>
+          <a href="#section-M" class="alpha-nav-item">M</a>
+          <a href="#section-N" class="alpha-nav-item">N</a>
+          <a href="#section-O" class="alpha-nav-item">O</a>
+          <a href="#section-P" class="alpha-nav-item">P</a>
+          <a href="#section-Q" class="alpha-nav-item">Q</a>
+          <a href="#section-R" class="alpha-nav-item">R</a>
+          <a href="#section-S" class="alpha-nav-item">S</a>
+          <a href="#section-T" class="alpha-nav-item">T</a>
+          <a href="#section-U" class="alpha-nav-item">U</a>
+          <a href="#section-V" class="alpha-nav-item">V</a>
+          <a href="#section-W" class="alpha-nav-item">W</a>
+          <a href="#section-X" class="alpha-nav-item">X</a>
+          <a href="#section-Y" class="alpha-nav-item">Y</a>
+          <a href="#section-Z" class="alpha-nav-item">Z</a>
+        </div>
+      </div>
+
+      <!-- Course List -->
+      <div class="course-list">
+        <!-- Course content will be dynamically loaded from JSON -->
+        <div class="loading-indicator">
+          <p>Loading courses...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top">
+    <span class="back-to-top-icon">↑</span>
+  </button>
+
+  <script src="js/bundle.js"></script>
+</body>
+
 </html>
